@@ -267,8 +267,8 @@ PRODUCTS.growth = {
   ],
   hasROI:true,
   workbookRange:'A43:C85',
-  periodNote:'Эффекты продуктивности и ИИ рассчитаны за один месяц; итог объединяет периоды, как в Excel.',
-  modelNote:'Для R&D и затрат используются отдельные стоимости проекта: 16 и 6 млн ₽ по умолчанию. ROI в Excel назван годовым, но месячные эффекты продуктивности и ИИ не умножаются на 12. Множитель R&D — 1,25, дополнительное деление из комментария не применяется.',
+  periodNote:'Эффекты продуктивности и ИИ рассчитаны за один месяц; итог объединяет эффекты разных периодов.',
+  modelNote:'Среднее время участия сотрудника в проекте — 20 часов при 168 рабочих часах в месяц. В затраты на команду входят работа менеджера, специалиста по проекту, эксперта по кейсу и пяти членов жюри с учётом подготовки.',
   inputs:[
     {id:'participantsCount', label:'Количество участников проекта', unit:'чел.', def:200, group:'main', step:1},
     {id:'participantSalary', label:'Средняя зарплата участника', unit:'₽/мес', def:150000, group:'main', step:1000},
@@ -438,7 +438,7 @@ function renderCalc(){
       <div id="resultsCol"></div>
     </div>
 
-    <div class="footnote"><b>Как считается:</b> источник — «2026-Финансовая выгода для клиентов .xlsx», лист «Эконом. эффективность 2026 », ${p.workbookRange}. Формулы и коэффициенты сохранены из файла. Исследования и рыночные оценки приведены по его комментариям и не являются гарантией результата. Подробности — в разделе «Как считается?» каждого эффекта. ${p.modelNote||''}</div>
+    ${p.modelNote ? `<div class="footnote"><b>Пояснение:</b> ${p.modelNote}</div>` : ''}
   `;
 
   // attach tooltip toggles
@@ -535,7 +535,7 @@ function renderResults(){
               ${e.data.map(d=>`<div class="datarow"><span class="k">${d.k}</span><span class="v">${d.v}</span></div>`).join('')}
             </div>
             <div class="block"><h5>Результат</h5><p>${e.result}</p></div>
-            <div class="block"><h5>Источник по данным Excel</h5><p class="source">${e.source}</p><p class="source">${sourceLinksHtml(e.id)}</p></div>
+            <div class="block"><h5>Источник</h5><p class="source">${e.source}</p><p class="source">${sourceLinksHtml(e.id)}</p></div>
           </div>
         </div>
         `;

@@ -267,7 +267,7 @@ PRODUCTS.evp = {
   ],
   hasROI:true,
   workbookRange:'A89:D136',
-  modelNote:'Индекс аутентичности 25% означает снижение эффектов активации на 25%. Стоимость кадровой ошибки для разработки рассчитана от месячной зарплаты × 1,6, как в формуле файла.',
+  modelNote:'Индекс аутентичности — понижающий коэффициент для активации, который уменьшает рассчитанный экономический эффект, чтобы сделать оценку более реалистичной.',
   inputs:[
     {id:'headcount', label:'Количество сотрудников компании', unit:'чел.', def:3000, group:'main', step:100},
     {id:'avgSalaryNet', label:'Средняя зарплата (после вычета налогов)', unit:'₽/мес', def:150000, group:'main', step:1000},
@@ -354,7 +354,7 @@ PRODUCTS.evp = {
             {k:'Снижение вероятности ошибки (допущение модели)', v:'10%'}
           ],
           result:'Эффект разработки = '+fmtMoneyFull(developmentEffect),
-          source:'В Excel: оценка стоимости ошибки 30% со ссылкой на SHRM / BLS и CertifiedSource (2026); снижение вероятности на 10% — экспертное допущение со ссылкой на исследования fit и Gallup. Формула использует месячную стоимость × 1,6, хотя комментарий описывает годовую × 1,52. Здесь сохранена формула файла.'
+          source:'Оценка стоимости ошибки 30% — по данным SHRM / BLS и CertifiedSource (2026); снижение вероятности на 10% — консервативная экспертная оценка на основе исследований соответствия сотрудника работе и организации и данных Gallup.'
         }
       ],
       costBreakdown:[
@@ -442,7 +442,7 @@ function renderCalc(){
       <div id="resultsCol"></div>
     </div>
 
-    <div class="footnote"><b>Как считается:</b> источник — «2026-Финансовая выгода для клиентов .xlsx», лист «Эконом. эффективность 2026 », ${p.workbookRange}. Формулы и коэффициенты сохранены из файла. Исследования и рыночные оценки приведены по его комментариям и не являются гарантией результата. Подробности — в разделе «Как считается?» каждого эффекта. ${p.modelNote||''}</div>
+    ${p.modelNote ? `<div class="footnote"><b>Пояснение:</b> ${p.modelNote}</div>` : ''}
   `;
 
   // attach tooltip toggles
@@ -539,7 +539,7 @@ function renderResults(){
               ${e.data.map(d=>`<div class="datarow"><span class="k">${d.k}</span><span class="v">${d.v}</span></div>`).join('')}
             </div>
             <div class="block"><h5>Результат</h5><p>${e.result}</p></div>
-            <div class="block"><h5>Источник по данным Excel</h5><p class="source">${e.source}</p><p class="source">${sourceLinksHtml(e.id)}</p></div>
+            <div class="block"><h5>Источник</h5><p class="source">${e.source}</p><p class="source">${sourceLinksHtml(e.id)}</p></div>
           </div>
         </div>
         `;

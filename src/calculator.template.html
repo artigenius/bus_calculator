@@ -328,7 +328,7 @@ function renderCalc(){
       <div id="resultsCol"></div>
     </div>
 
-    <div class="footnote"><b>Как считается:</b> источник — «2026-Финансовая выгода для клиентов .xlsx», лист «Эконом. эффективность 2026 », ${p.workbookRange}. Формулы и коэффициенты сохранены из файла. Исследования и рыночные оценки приведены по его комментариям и не являются гарантией результата. Подробности — в разделе «Как считается?» каждого эффекта. ${p.modelNote||''}</div>
+    ${p.modelNote ? `<div class="footnote"><b>Пояснение:</b> ${p.modelNote}</div>` : ''}
   `;
 
   // attach tooltip toggles
@@ -425,7 +425,7 @@ function renderResults(){
               ${e.data.map(d=>`<div class="datarow"><span class="k">${d.k}</span><span class="v">${d.v}</span></div>`).join('')}
             </div>
             <div class="block"><h5>Результат</h5><p>${e.result}</p></div>
-            <div class="block"><h5>Источник по данным Excel</h5><p class="source">${e.source}</p><p class="source">${sourceLinksHtml(e.id)}</p></div>
+            <div class="block"><h5>Источник</h5><p class="source">${e.source}</p><p class="source">${sourceLinksHtml(e.id)}</p></div>
           </div>
         </div>
         `;
