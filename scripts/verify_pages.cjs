@@ -8,16 +8,16 @@ const { chromium } = require('playwright');
 
 const root = path.resolve(__dirname, '..');
 const expected = {
-  internship: [141855000, 25664000],
-  growth: [58304508.57142857, 18660571.42857143],
-  evp: [88677600, 27000000],
-  championship: [9874500, null],
+  internship: [389731200, 25664000],
+  growth: [63978034.28571429, 8946285.714285715],
+  evp: [95013000, 22000000],
+  certification: [1005312000, 2348000],
 };
 
 async function main() {
   const server = http.createServer((req, res) => {
     const name = new URL(req.url, 'http://localhost').pathname.slice(1);
-    if (![...Object.keys(expected), 'calculator'].some(id => name === `${id}.html`)) {
+    if (![...Object.keys(expected), 'calculator', 'championship'].some(id => name === `${id}.html`)) {
       res.writeHead(404).end();
       return;
     }
@@ -70,6 +70,14 @@ async function main() {
         }
         await page.locator('.effect-head').first().click();
         assert.ok(await page.locator('.effect-body').first().isVisible());
+        for (const bad of ['', '-1', 'abc', '12abc', '1e999']) {
+          await input.fill(bad);
+          assert.equal(await page.locator('[role="alert"]').count(), 1, `${id}: invalid ${bad}`);
+          assert.equal(await page.locator('.result-hero').count(), 0);
+        }
+        await input.fill('1 234,5');
+        assert.equal(await page.evaluate(id => values[id], field), 1234.5);
+        assert.equal(await page.locator('[role="alert"]').count(), 0);
         await page.locator('.reset-btn').click();
         assert.equal(await page.locator('.result-hero .value').innerText(), original);
         if (hasAdvanced) {
@@ -78,8 +86,28 @@ async function main() {
         }
         await page.reload();
         assert.equal(await page.locator('h1').count(), 1);
+        assert.ok(await page.locator('.source a').count()>0);
+        const percentField = await page.evaluate(() => currentProduct.inputs.find(f=>f.percent)?.id);
+        if (percentField) {
+          const percentInput = page.locator(`#in_${percentField}`);
+          if (!(await percentInput.isVisible())) await page.locator('#advToggle').click();
+          await percentInput.fill('101');
+          assert.equal(await page.locator('[role="alert"]').count(), 1);
+          await page.locator('.reset-btn').click();
+        }
+        if (id === 'evp' || id === 'certification') {
+          await page.locator('#in_programCost').fill('0');
+          if (id === 'certification') await page.locator('#advToggle').click();
+          await page.locator(id === 'evp' ? '#in_activationCost' : '#in_internalCost').fill('0');
+          assert.equal(await page.locator('.roi .value').innerText(), '—');
+          await page.locator('.reset-btn').click();
+        }
         for (const width of [390, 320]) {
           await page.setViewportSize({ width, height: 844 });
+          await page.evaluate(() => {
+            document.querySelectorAll('.effect-card').forEach(card=>card.classList.add('open'));
+            document.getElementById('advFields')?.classList.add('show');
+          });
           assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${id}: overflow at ${width}`);
         }
         if (protocol === 'file') {
@@ -96,6 +124,12 @@ async function main() {
     await page.goto(pathToFileURL(path.join(root, 'calculator.html')).href);
     await page.waitForURL('**/internship.html');
     console.log('PASS legacy calculator.html redirect');
+    for (const url of [pathToFileURL(path.join(root, 'championship.html')).href,
+      `http://127.0.0.1:${server.address().port}/championship.html`]) {
+      await page.goto(url);
+      await page.waitForURL('**/certification.html');
+    }
+    console.log('PASS former championship.html redirects to certification');
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

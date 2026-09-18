@@ -1,0 +1,628 @@
+{
+  "source": "3_2026_financial_benefits.xlsx",
+  "originalName": "2026-Финансовая выгода для клиентов .xlsx",
+  "sheet": "Эконом. эффективность 2026 ",
+  "cells": {
+    "B5": {
+      "value": 200.0,
+      "formula": null
+    },
+    "B6": {
+      "value": 6.0,
+      "formula": null
+    },
+    "B7": {
+      "value": 0.37,
+      "formula": null
+    },
+    "B8": {
+      "value": 150000.0,
+      "formula": null
+    },
+    "B9": {
+      "value": 240000.0,
+      "formula": "=B8*1.6"
+    },
+    "B10": {
+      "value": 70000.0,
+      "formula": "=70000"
+    },
+    "B11": {
+      "value": 112000.0,
+      "formula": "=B10*1.6"
+    },
+    "B12": {
+      "value": 56832000.0,
+      "formula": "=(B9-B11)*B5*B6*B7"
+    },
+    "B14": {
+      "value": 150000.0,
+      "formula": "=B8"
+    },
+    "B15": {
+      "value": 0.18,
+      "formula": null
+    },
+    "B16": {
+      "value": 324000.0,
+      "formula": "=B14*12*0.18"
+    },
+    "B17": {
+      "value": 900000.0,
+      "formula": "=B14*6"
+    },
+    "B18": {
+      "value": 60.0,
+      "formula": "=B5*0.3"
+    },
+    "B19": {
+      "value": 73440000.0,
+      "formula": "=(B16+B17)*B18"
+    },
+    "B22": {
+      "value": 150000.0,
+      "formula": "=B8"
+    },
+    "B23": {
+      "value": 1800000.0,
+      "formula": "=B22*12"
+    },
+    "B24": {
+      "value": 0.18,
+      "formula": null
+    },
+    "B25": {
+      "value": 324000.0,
+      "formula": "=B23*B24"
+    },
+    "B26": {
+      "value": 46332.0,
+      "formula": "=B25*14.3%"
+    },
+    "B27": {
+      "value": 112000.0,
+      "formula": null
+    },
+    "B28": {
+      "value": 0.05,
+      "formula": null
+    },
+    "B29": {
+      "value": 5600.0,
+      "formula": "=B27*B28"
+    },
+    "B30": {
+      "value": 259459200.0,
+      "formula": "=B26*B29"
+    },
+    "B32": {
+      "value": 56832000.0,
+      "formula": "=B12"
+    },
+    "B33": {
+      "value": 73440000.0,
+      "formula": "=B19"
+    },
+    "B34": {
+      "value": 259459200.0,
+      "formula": "=B30"
+    },
+    "B35": {
+      "value": 389731200.0,
+      "formula": "=SUM(B32:B34)"
+    },
+    "B36": {
+      "value": 20000000.0,
+      "formula": null
+    },
+    "B37": {
+      "value": 5664000.0,
+      "formula": "=((((300000*0.2)+(0.5*200000)+(100000*0.5)+(170000*0.5))*6)*1.6)*2"
+    },
+    "B38": {
+      "value": 25664000.0,
+      "formula": "=B36+B37"
+    },
+    "B39": {
+      "value": 14.18591022,
+      "formula": "=(B35-B38)/B38"
+    },
+    "B45": {
+      "value": 200.0,
+      "formula": null
+    },
+    "B46": {
+      "value": 150000.0,
+      "formula": null
+    },
+    "B47": {
+      "value": 0.5966666667,
+      "formula": "=(13%+30%+1/12+1/12/2+1/12/2)"
+    },
+    "B48": {
+      "value": 48000000.0,
+      "formula": "=B46*1.6*B45"
+    },
+    "B49": {
+      "value": 0.166,
+      "formula": null
+    },
+    "B50": {
+      "value": 7968000.0,
+      "formula": "=B48*B49"
+    },
+    "B52": {
+      "value": 60.0,
+      "formula": "=B45*0.3"
+    },
+    "B53": {
+      "value": 14400000.0,
+      "formula": "=B46*1.6*B52"
+    },
+    "B54": {
+      "value": 1714285.714,
+      "formula": "=B53*20/168"
+    },
+    "B55": {
+      "value": 16000000.0,
+      "formula": null
+    },
+    "B56": {
+      "value": 1232000.0,
+      "formula": "=(((350000*0.2)+(100000)+(200000*0.25)*3)+(0.2*5*450000))*1.6"
+    },
+    "B57": {
+      "value": 18946285.71,
+      "formula": "=B54+B55+B56"
+    },
+    "B58": {
+      "value": 2.0,
+      "formula": null
+    },
+    "B59": {
+      "value": 23682857.14,
+      "formula": "=B57*1.25"
+    },
+    "B60": {
+      "value": 47365714.29,
+      "formula": "=B58*B59"
+    },
+    "B62": {
+      "value": 300000.0,
+      "formula": null
+    },
+    "B63": {
+      "value": 0.18,
+      "formula": null
+    },
+    "B64": {
+      "value": 648000.0,
+      "formula": "=B62*12*0.18"
+    },
+    "B65": {
+      "value": 1800000.0,
+      "formula": "=B62*6"
+    },
+    "B66": {
+      "value": 3.0,
+      "formula": null
+    },
+    "B67": {
+      "value": 7344000.0,
+      "formula": "=(B64+B65)*B66"
+    },
+    "B69": {
+      "value": 200.0,
+      "formula": "=B45",
+      "formulaAttributes": {
+        "t": "shared",
+        "ref": "B69:B70",
+        "si": "1"
+      }
+    },
+    "B70": {
+      "value": 150000.0,
+      "formula": null,
+      "formulaAttributes": {
+        "t": "shared",
+        "si": "1"
+      }
+    },
+    "B71": {
+      "value": 48000000.0,
+      "formula": "=B70*1.6*B69"
+    },
+    "B72": {
+      "value": 0.42,
+      "formula": null
+    },
+    "B73": {
+      "value": 0.0645,
+      "formula": null
+    },
+    "B74": {
+      "value": 1300320.0,
+      "formula": "=B71*B73*B72"
+    },
+    "B76": {
+      "value": 7968000.0,
+      "formula": "=B50"
+    },
+    "B77": {
+      "value": 47365714.29,
+      "formula": "=B60"
+    },
+    "B78": {
+      "value": 7344000.0,
+      "formula": "=B67"
+    },
+    "B79": {
+      "value": 1300320.0,
+      "formula": "=B74"
+    },
+    "B80": {
+      "value": 63978034.29,
+      "formula": "=SUM(B76:B79)"
+    },
+    "B81": {
+      "value": 1714285.714,
+      "formula": "=B54"
+    },
+    "B82": {
+      "value": 6000000.0,
+      "formula": null
+    },
+    "B83": {
+      "value": 1232000.0,
+      "formula": "=(((350000*0.2)+(100000)+(200000*0.25)*3)+(0.2*5*450000))*1.6"
+    },
+    "B84": {
+      "value": 8946285.714,
+      "formula": "=SUM(B81:B83)"
+    },
+    "B85": {
+      "value": 6.151351559,
+      "formula": "=(B80-B84)/B84"
+    },
+    "B91": {
+      "value": 150000.0,
+      "formula": null
+    },
+    "B92": {
+      "value": 1800000.0,
+      "formula": "=B91*12"
+    },
+    "B93": {
+      "value": 3000.0,
+      "formula": null
+    },
+    "B94": {
+      "value": 0.2,
+      "formula": null
+    },
+    "B95": {
+      "value": 600.0,
+      "formula": "=B93*B94"
+    },
+    "B96": {
+      "value": 1080000000.0,
+      "formula": "=B95*B92"
+    },
+    "B97": {
+      "value": 32400000.0,
+      "formula": "=B96*3%"
+    },
+    "B98": {
+      "value": 0.52,
+      "formula": null
+    },
+    "B99": {
+      "value": 49248000.0,
+      "formula": "=B97*(1+B98)"
+    },
+    "B101": {
+      "value": 3000.0,
+      "formula": "=B93",
+      "formulaAttributes": {
+        "t": "shared",
+        "ref": "B101:B102",
+        "si": "2"
+      }
+    },
+    "B102": {
+      "value": 0.2,
+      "formula": null,
+      "formulaAttributes": {
+        "t": "shared",
+        "si": "2"
+      }
+    },
+    "B103": {
+      "value": 0.23,
+      "formula": "=(69/3)%"
+    },
+    "B104": {
+      "value": 0.154,
+      "formula": "=B102*(1-B103)"
+    },
+    "B105": {
+      "value": 138.0,
+      "formula": "=B101*(B102-B104)"
+    },
+    "B106": {
+      "value": 150000.0,
+      "formula": "=B91"
+    },
+    "B107": {
+      "value": 0.22,
+      "formula": null
+    },
+    "B108": {
+      "value": 396000.0,
+      "formula": "=B106*12*B107"
+    },
+    "B109": {
+      "value": 54648000.0,
+      "formula": "=B105*B108"
+    },
+    "B111": {
+      "value": 150000.0,
+      "formula": "=B91",
+      "formulaAttributes": {
+        "t": "shared",
+        "ref": "B111:B112",
+        "si": "3"
+      }
+    },
+    "B112": {
+      "value": 1800000.0,
+      "formula": null,
+      "formulaAttributes": {
+        "t": "shared",
+        "si": "3"
+      }
+    },
+    "B113": {
+      "value": 0.22,
+      "formula": null
+    },
+    "B114": {
+      "value": 396000.0,
+      "formula": "=B108"
+    },
+    "B115": {
+      "value": 56760.0,
+      "formula": "=B114*(43%/3)"
+    },
+    "B116": {
+      "value": 3000.0,
+      "formula": "=B93"
+    },
+    "B117": {
+      "value": 0.1,
+      "formula": null
+    },
+    "B118": {
+      "value": 300.0,
+      "formula": "=B116*B117"
+    },
+    "B119": {
+      "value": 17028000.0,
+      "formula": "=B115*B118"
+    },
+    "B122": {
+      "value": 150000.0,
+      "formula": "=B91"
+    },
+    "B123": {
+      "value": 240000.0,
+      "formula": "=B122*1.6"
+    },
+    "B124": {
+      "value": 3000.0,
+      "formula": "=B93"
+    },
+    "B125": {
+      "value": 600.0,
+      "formula": "=B124*B94"
+    },
+    "B126": {
+      "value": 0.3,
+      "formula": null
+    },
+    "B127": {
+      "value": 72000.0,
+      "formula": "=B123*B126"
+    },
+    "B128": {
+      "value": 0.1,
+      "formula": null
+    },
+    "B129": {
+      "value": 4320000.0,
+      "formula": "=B125*B127*B128"
+    },
+    "B131": {
+      "value": 0.25,
+      "formula": null
+    },
+    "B132": {
+      "value": 95013000.0,
+      "formula": "=(B119+B109+B99)*(100%-B131)+B129"
+    },
+    "B133": {
+      "value": 7000000.0,
+      "formula": null
+    },
+    "B134": {
+      "value": 15000000.0,
+      "formula": null
+    },
+    "B135": {
+      "value": 22000000.0,
+      "formula": "=SUM(B133:B134)"
+    },
+    "B136": {
+      "value": 3.318772727,
+      "formula": "=(B132-B135)/B135"
+    },
+    "B142": {
+      "value": 150000.0,
+      "formula": null
+    },
+    "B143": {
+      "value": 1800000.0,
+      "formula": "=B142*12"
+    },
+    "B144": {
+      "value": 0.18,
+      "formula": null
+    },
+    "B145": {
+      "value": 324000.0,
+      "formula": "=B143*B144"
+    },
+    "B146": {
+      "value": 0.067,
+      "formula": null
+    },
+    "B147": {
+      "value": 112000.0,
+      "formula": null
+    },
+    "B148": {
+      "value": 0.05,
+      "formula": null
+    },
+    "B149": {
+      "value": 5600.0,
+      "formula": "=B147*B148"
+    },
+    "B150": {
+      "value": 121564800.0,
+      "formula": "=B145*B146*B149"
+    },
+    "B152": {
+      "value": 0.15,
+      "formula": null
+    },
+    "B153": {
+      "value": 16800.0,
+      "formula": "=B147*B152"
+    },
+    "B154": {
+      "value": 0.3,
+      "formula": null
+    },
+    "B155": {
+      "value": 45000.0,
+      "formula": "=B142*B154"
+    },
+    "B156": {
+      "value": 0.1,
+      "formula": null
+    },
+    "B157": {
+      "value": 75600000.0,
+      "formula": "=B153*B155*B156"
+    },
+    "B159": {
+      "value": 170000.0,
+      "formula": null
+    },
+    "B160": {
+      "value": 112000.0,
+      "formula": "=B147"
+    },
+    "B161": {
+      "value": 30464000000.0,
+      "formula": "=B159*B160*1.6"
+    },
+    "B162": {
+      "value": 3046400000.0,
+      "formula": "=B161*0.1"
+    },
+    "B163": {
+      "value": 100531200.0,
+      "formula": "=B162*0.033"
+    },
+    "B165": {
+      "value": 0.15,
+      "formula": "=B152"
+    },
+    "B166": {
+      "value": 0.13,
+      "formula": null
+    },
+    "B167": {
+      "value": 0.1305,
+      "formula": "=B165*(1-B166)"
+    },
+    "B168": {
+      "value": 2184.0,
+      "formula": "=B147*(B165-B167)"
+    },
+    "B169": {
+      "value": 324000.0,
+      "formula": "=B145"
+    },
+    "B170": {
+      "value": 707616000.0,
+      "formula": "=B168*B169"
+    },
+    "B172": {
+      "value": 121564800.0,
+      "formula": "=B150"
+    },
+    "B173": {
+      "value": 75600000.0,
+      "formula": "=B157"
+    },
+    "B174": {
+      "value": 707616000.0,
+      "formula": "=B170"
+    },
+    "B175": {
+      "value": 100531200.0,
+      "formula": "=B163"
+    },
+    "B176": {
+      "value": 1005312000.0,
+      "formula": "=SUM(B172:B175)"
+    },
+    "B178": {
+      "value": 1400000.0,
+      "formula": "=1400000"
+    },
+    "B179": {
+      "value": 948000.0,
+      "formula": "=((((300000*0.2)+(0.5*200000)+(100000*0.5)+(150*0.01*110000)*1.6)*2))"
+    },
+    "B180": {
+      "value": 2348000.0,
+      "formula": "=B178+B179"
+    },
+    "B181": {
+      "value": 427.1567291,
+      "formula": "=(B176-B180)/B180"
+    }
+  },
+  "links": {
+    "C17": "https://www.linkedin.com/pulse/%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%BD%D1%8B%D0%B5-%D1%84%D0%B0%D0%BA%D1%82%D1%8B-%D0%BE%D0%B1-%D0%B0%D0%B4%D0%B0%D0%BF%D1%82%D0%B0%D1%86%D0%B8%D0%B8-%D1%81%D0%BE%D1%82%D1%80%D1%83%D0%B4%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2-evgeniy-vanetik-tvj9f?originalSubdomain=ru",
+    "C24": "https://www.gartner.com/en/newsroom/press-releases/2020-05-25-gartner-hr-research-shows-organizations-must-reinvent-their-employment-value-proposition-to-deliver-a-more-human-deal",
+    "C26": "https://www.linkedin.com/business/talent/blog/talent-acquisition/roi-of-talent-brand?utm_source=chatgpt.com.",
+    "C28": "https://www.naceweb.org/talent-acquisition/trends-and-predictions/hiring-up-7-point-3-percent-for-the-college-class-of-2025",
+    "C49": "https://www.playtours.app/post/how-team-building-positively-impacts-employee-experience-with-statistical-evidence",
+    "C59": "https://eml.berkeley.edu/~bhhall/papers/HallMairesseMohnen09_rndsurvey_HEI.pdf",
+    "C65": "https://www.linkedin.com/pulse/%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%BD%D1%8B%D0%B5-%D1%84%D0%B0%D0%BA%D1%82%D1%8B-%D0%BE%D0%B1-%D0%B0%D0%B4%D0%B0%D0%BF%D1%82%D0%B0%D1%86%D0%B8%D0%B8-%D1%81%D0%BE%D1%82%D1%80%D1%83%D0%B4%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2-evgeniy-vanetik-tvj9f?originalSubdomain=ru",
+    "C72": "https://www.bcg.com/press/3june2026-ia-au-travail-jusqua-une-journee-economisee-par-semaine?",
+    "C97": "https://hbr.org/2016/03/a-bad-reputation-costs-company-at-least-10-more-per-hire",
+    "C103": "https://www.gartner.com/en/newsroom/press-releases/2020-05-25-gartner-hr-research-shows-organizations-must-reinvent-their-employment-value-proposition-to-deliver-a-more-human-deal",
+    "C115": "https://hrmessenger.com/pochemu_hr_dolzhen_dumat_kak_marketolog",
+    "C146": "https://www.greatplacetowork.com/resources/blog/why-job-seekers-prefer-certified-workplaces?utm_source=chatgpt.com",
+    "C148": "https://www.naceweb.org/talent-acquisition/trends-and-predictions/hiring-up-7-point-3-percent-for-the-college-class-of-2025",
+    "C162": "https://www.kommersant.ru/doc/4190377",
+    "C163": "https://www.greatplacetowork.com/resources/blog/why-job-seekers-prefer-certified-workplaces?utm_source=chatgpt.com",
+    "C166": "https://www.greatplacetowork.com/resources/blog/why-job-seekers-prefer-certified-workplaces?utm_source=chatgpt.com"
+  }
+}

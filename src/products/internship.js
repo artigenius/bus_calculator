@@ -11,13 +11,15 @@ PRODUCTS.internship = {
     {title:'Employer Brand', text:'Сильная стажёрская программа снижает стоимость дальнейшего привлечения кандидатов.'}
   ],
   hasROI:true,
+  workbookRange:'A3:C39',
+  modelNote:'Стоимость команды партнёра — фиксированная оценка 5 664 000 ₽ из файла; она не масштабируется автоматически с числом стажёров и длительностью программы.',
   inputs:[
     {id:'internsPerYear', label:'Стажёров за год (все волны)', unit:'чел.', def:200, group:'main', step:1},
     {id:'internshipMonths', label:'Длительность стажировки', unit:'мес.', def:6, group:'main', step:1},
     {id:'specialistSalary', label:'Средняя зарплата специалиста', unit:'₽/мес', def:150000, group:'main', step:1000,
       help:'Специалист, часть задач которого выполняют стажёры. Это же значение используется для расчёта стоимости найма и адаптации при переходе стажёров в штат'},
     {id:'internSalary', label:'Средняя зарплата стажёра', unit:'₽/мес', def:70000, group:'main', step:1000},
-    {id:'companyHeadcount', label:'Количество сотрудников компании', unit:'чел.', def:5000, group:'main', step:100},
+    {id:'companyHeadcount', label:'Количество сотрудников компании', unit:'чел.', def:112000, group:'main', step:100},
     {id:'programCost', label:'Стоимость программы стажировки Changellenge >>', unit:'₽', def:20000000, group:'main', step:100000}
   ],
   compute(v){
@@ -40,7 +42,7 @@ PRODUCTS.internship = {
 
     const total = e1+e2+e3;
     const cost = v.programCost+TEAM_COST;
-    const roi = (total-cost)/cost;
+    const roi = cost > 0 ? (total-cost)/cost : null;
 
     return {
       total, cost, roi,
@@ -80,7 +82,7 @@ PRODUCTS.internship = {
       ],
       costBreakdown:[
         {k:'Стоимость программы Changellenge >>', v:fmtMoneyFull(v.programCost)},
-        {k:'Стоимость работы команды Changellenge >> (фикс.)', v:fmtMoneyFull(TEAM_COST)}
+        {k:'Стоимость работы команды партнёра (фикс.)', v:fmtMoneyFull(TEAM_COST)}
       ]
     };
   }

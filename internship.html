@@ -233,13 +233,23 @@ function fmtPercent(x, decimals){
   return (x*100).toLocaleString('ru-RU',{minimumFractionDigits:decimals,maximumFractionDigits:decimals}) + "%";
 }
 function fmtRoi(x){
+  if(x===null || !Number.isFinite(x)) return '—';
   return Math.round(x*100).toLocaleString('ru-RU') + "%";
+}
+function sourceLinksHtml(effectId){
+  return (currentProduct.sourceLinks?.[effectId]||[]).map(raw=>{
+    const url = new URL(raw);
+    if(url.protocol!=='https:' && url.protocol!=='http:') return '';
+    const href = url.href.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url.hostname}</a>`;
+  }).join(' · ');
 }
 
 /* ============================================================
    PRODUCT MODELS
-   Все формулы и коэффициенты воспроизводят Excel-модель
-   "Эконом. эффективность 2026" 1:1 (проверено на значениях по умолчанию).
+   Источник: «2026-Финансовая выгода для клиентов .xlsx»,
+   лист «Эконом. эффективность 2026 » (с пробелом в конце).
+   Формулы и существенные расхождения с комментариями описаны в docs/model-2026-update.md.
    ============================================================ */
 const PRODUCTS = {};
 PRODUCTS.internship = {
@@ -255,13 +265,15 @@ PRODUCTS.internship = {
     {title:'Employer Brand', text:'Сильная стажёрская программа снижает стоимость дальнейшего привлечения кандидатов.'}
   ],
   hasROI:true,
+  workbookRange:'A3:C39',
+  modelNote:'Стоимость команды партнёра — фиксированная оценка 5 664 000 ₽ из файла; она не масштабируется автоматически с числом стажёров и длительностью программы.',
   inputs:[
     {id:'internsPerYear', label:'Стажёров за год (все волны)', unit:'чел.', def:200, group:'main', step:1},
     {id:'internshipMonths', label:'Длительность стажировки', unit:'мес.', def:6, group:'main', step:1},
     {id:'specialistSalary', label:'Средняя зарплата специалиста', unit:'₽/мес', def:150000, group:'main', step:1000,
       help:'Специалист, часть задач которого выполняют стажёры. Это же значение используется для расчёта стоимости найма и адаптации при переходе стажёров в штат'},
     {id:'internSalary', label:'Средняя зарплата стажёра', unit:'₽/мес', def:70000, group:'main', step:1000},
-    {id:'companyHeadcount', label:'Количество сотрудников компании', unit:'чел.', def:5000, group:'main', step:100},
+    {id:'companyHeadcount', label:'Количество сотрудников компании', unit:'чел.', def:112000, group:'main', step:100},
     {id:'programCost', label:'Стоимость программы стажировки Changellenge >>', unit:'₽', def:20000000, group:'main', step:100000}
   ],
   compute(v){
@@ -284,7 +296,7 @@ PRODUCTS.internship = {
 
     const total = e1+e2+e3;
     const cost = v.programCost+TEAM_COST;
-    const roi = (total-cost)/cost;
+    const roi = cost > 0 ? (total-cost)/cost : null;
 
     return {
       total, cost, roi,
@@ -324,11 +336,13 @@ PRODUCTS.internship = {
       ],
       costBreakdown:[
         {k:'Стоимость программы Changellenge >>', v:fmtMoneyFull(v.programCost)},
-        {k:'Стоимость работы команды Changellenge >> (фикс.)', v:fmtMoneyFull(TEAM_COST)}
+        {k:'Стоимость работы команды партнёра (фикс.)', v:fmtMoneyFull(TEAM_COST)}
       ]
     };
   }
 };
+
+PRODUCTS.internship.sourceLinks = {"e2": ["https://www.linkedin.com/pulse/%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%BD%D1%8B%D0%B5-%D1%84%D0%B0%D0%BA%D1%82%D1%8B-%D0%BE%D0%B1-%D0%B0%D0%B4%D0%B0%D0%BF%D1%82%D0%B0%D1%86%D0%B8%D0%B8-%D1%81%D0%BE%D1%82%D1%80%D1%83%D0%B4%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2-evgeniy-vanetik-tvj9f?originalSubdomain=ru"], "e3": ["https://www.linkedin.com/business/talent/blog/talent-acquisition/roi-of-talent-brand?utm_source=chatgpt.com.", "https://www.naceweb.org/talent-acquisition/trends-and-predictions/hiring-up-7-point-3-percent-for-the-college-class-of-2025"]};
 
 
 /* ============================================================
@@ -363,8 +377,7 @@ function fmtInputValue(v){
 }
 function parseInputValue(s){
   const cleaned = String(s).replace(/\s| /g,'').replace(',','.');
-  const n = parseFloat(cleaned);
-  return isNaN(n) ? 0 : n;
+  return cleaned === '' ? NaN : Number(cleaned);
 }
 
 function renderCalc(){
@@ -406,7 +419,7 @@ function renderCalc(){
       <div id="resultsCol"></div>
     </div>
 
-    <div class="footnote"><b>Как считается:</b> расчёт основан на модели Changellenge &gt;&gt; «Экономическая эффективность 2026». Внутренние рыночные бенчмарки и исследовательские коэффициенты зафиксированы в модели и не выводятся как отдельные поля ввода — их можно посмотреть в разделе «Как считается?» под каждым эффектом.</div>
+    <div class="footnote"><b>Как считается:</b> источник — «2026-Финансовая выгода для клиентов .xlsx», лист «Эконом. эффективность 2026 », ${p.workbookRange}. Формулы и коэффициенты сохранены из файла. Исследования и рыночные оценки приведены по его комментариям и не являются гарантией результата. Подробности — в разделе «Как считается?» каждого эффекта. ${p.modelNote||''}</div>
   `;
 
   // attach tooltip toggles
@@ -444,8 +457,18 @@ function resetDefaults(){
 
 function renderResults(){
   const p = currentProduct;
-  const r = p.compute(values);
   const col = document.getElementById('resultsCol');
+  const invalid = p.inputs.filter(f=>!Number.isFinite(values[f.id]) || values[f.id]<0 || (f.percent && values[f.id]>100));
+  p.inputs.forEach(f=>document.getElementById('in_'+f.id)?.setAttribute('aria-invalid', String(invalid.includes(f))));
+  if(invalid.length){
+    col.innerHTML = '<div class="panel" role="alert">Введите корректные неотрицательные числа. Проценты должны быть от 0 до 100. Проверьте: '+invalid.map(f=>f.label).join(', ')+'.</div>';
+    return;
+  }
+  const r = p.compute(values);
+  if(![r.total,r.cost,...r.effects.map(e=>e.amount)].every(Number.isFinite)){
+    col.innerHTML = '<div class="panel" role="alert">Значения слишком велики для расчёта. Уменьшите исходные данные.</div>';
+    return;
+  }
 
   const maxAmount = Math.max(...r.effects.map(e=>Math.abs(e.amount)), 1);
 
@@ -454,7 +477,7 @@ function renderResults(){
     kpiHtml = `
       <div class="kpi-row">
         <div class="kpi-card"><div class="label">Затраты</div><div class="value">${fmtMoney(r.cost)}</div></div>
-        <div class="kpi-card roi"><div class="label">ROI за 1 год</div><div class="value">${fmtRoi(r.roi)}</div></div>
+        <div class="kpi-card roi"><div class="label">ROI по модели</div><div class="value">${fmtRoi(r.roi)}</div></div>
       </div>
     `;
   }
@@ -464,9 +487,10 @@ function renderResults(){
       <div class="brand-sign" aria-hidden="true"><svg width="30" height="17" viewBox="0 0 262 150" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M112.366 0H187.037L261.624 74.6348L187.037 149.27H112.366L187.037 74.6348L112.366 0ZM74.5868 0L149.258 74.6348L74.5868 149.27H0L74.5868 74.6348L0 0H74.5868Z" fill="white"/></svg></div>
       <div class="label">Расчётный экономический эффект</div>
       <div class="value">${fmtMoney(r.total)}</div>
-      <div class="sub">${p.hasROI ? 'в год, с учётом затрат на проект ниже' : 'в год · без учёта отдельного расчёта ROI — в исходной модели нет стоимости проекта для этого продукта'}</div>
+      <div class="sub">До вычета затрат на проект. ${p.periodNote||'Годовая оценка по модели.'}</div>
     </div>
     ${kpiHtml}
+    ${r.cost===0 ? '<p class="hint">ROI не определён при нулевых затратах.</p>' : ''}
     <div class="breakdown">
       <h3>Из чего складывается эффект</h3>
       ${r.effects.map(e=>{
@@ -492,7 +516,7 @@ function renderResults(){
               ${e.data.map(d=>`<div class="datarow"><span class="k">${d.k}</span><span class="v">${d.v}</span></div>`).join('')}
             </div>
             <div class="block"><h5>Результат</h5><p>${e.result}</p></div>
-            <div class="block"><h5>Источник</h5><p class="source">${e.source}</p></div>
+            <div class="block"><h5>Источник по данным Excel</h5><p class="source">${e.source}</p><p class="source">${sourceLinksHtml(e.id)}</p></div>
           </div>
         </div>
         `;
@@ -504,8 +528,8 @@ function renderResults(){
           <div class="left">
             <div class="effect-bar-wrap"><div class="effect-bar-fill" style="height:100%;background:var(--ink-2);"></div></div>
             <div class="txt">
-              <div class="t">Индекс аутентичности</div>
-              <div class="v">× ${fmtPercent(r.authIdx,0)}</div>
+              <div class="t">После индекса аутентичности</div>
+              <div class="v">${fmtPercent(r.activationFactor,0)} эффектов активации</div>
             </div>
           </div>
           <div class="toggle">Как считается?
@@ -513,12 +537,13 @@ function renderResults(){
           </div>
         </div>
         <div class="effect-body">
-          <div class="block"><h5>Логика</h5><p>Индекс аутентичности — понижающий коэффициент, который применяется к сумме всех эффектов EVP, чтобы сделать модель более консервативной и реалистичной.</p></div>
+          <div class="block"><h5>Логика</h5><p>Сумма трёх эффектов активации уменьшается на индекс аутентичности. Эффект разработки EVP добавляется отдельно без этого снижения.</p></div>
           <div class="block"><h5>Использованные данные</h5>
-            <div class="datarow"><span class="k">Сумма эффектов до применения индекса</span><span class="v">${fmtMoneyFull(r.rawTotal)}</span></div>
-            <div class="datarow"><span class="k">Индекс аутентичности</span><span class="v">${fmtPercent(r.authIdx,0)}</span></div>
+            <div class="datarow"><span class="k">Сумма эффектов активации до применения индекса</span><span class="v">${fmtMoneyFull(r.rawTotal)}</span></div>
+            <div class="datarow"><span class="k">Снижение на индекс аутентичности</span><span class="v">${fmtPercent(r.authIdx,0)}</span></div>
+            <div class="datarow"><span class="k">Эффект разработки EVP</span><span class="v">${fmtMoneyFull(r.developmentEffect)}</span></div>
           </div>
-          <div class="block"><h5>Результат</h5><p>Итоговый эффект = ${fmtMoneyFull(r.rawTotal)} × ${fmtPercent(r.authIdx,0)} = ${fmtMoneyFull(r.total)}</p></div>
+          <div class="block"><h5>Результат</h5><p>Итоговый эффект = ${fmtMoneyFull(r.rawTotal)} × (100% − ${fmtPercent(r.authIdx,0)}) + ${fmtMoneyFull(r.developmentEffect)} = ${fmtMoneyFull(r.total)}</p></div>
         </div>
       </div>
     ` : ''}
